@@ -1,0 +1,48 @@
+
+Python 3.9.4 (tags/v3.9.4:1f2e308, Apr  6 2021, 13:40:21) [MSC v.1928 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.23.1 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]:
+
+In [1]:
+
+In [1]: from classmethods_bic_code import *
+
+In [2]: c1 = ShippingContainer.create_empty()
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-2-4a545d28d900> in <module>
+----> 1 c1 = ShippingContainer.create_empty()
+
+TypeError: create_empty() missing 1 required positional argument: 'owner_code'
+
+In [3]: c1 = ShippingContainer.create_empty("YML")
+
+In [4]: c1.bic_code
+Out[4]: 'YMLU0013374'
+
+In [5]: c1.contents
+Out[5]: []
+
+In [6]: c1.create_with_items("PWD", {"shoes", "trousers"})
+Out[6]: <classmethods_bic_code.ShippingContainer at 0x2356ee909d0>
+
+In [7]: c2 = _
+
+In [8]: c2
+Out[8]: <classmethods_bic_code.ShippingContainer at 0x2356ee909d0>
+
+In [9]: c2.__class__
+Out[9]: classmethods_bic_code.ShippingContainer
+
+In [10]: c2.bic_code
+Out[10]: 'PWDU0013380'
+
+In [11]: c2.next_serial
+Out[11]: 1339
+
+In [12]: ShippingContainer.next_serial
+Out[12]: 1339
+
+In [13]:

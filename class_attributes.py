@@ -1,6 +1,3 @@
-from typing import Collection, Union, List
-
-
 class ShippingContainer:
 
     next_serial = 1337
