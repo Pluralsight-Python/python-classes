@@ -12,21 +12,24 @@ class ShippingContainer:
         return serial
 
     @classmethod
-    def create_empty(cls, owner_code):
-        return cls(owner_code, contents=[])
+    def create_empty(cls, owner_code, **kwargs):
+        return cls(owner_code, contents=[], **kwargs)
 
     @classmethod
-    def create_with_items(cls, owner_code, items):
-        return cls(owner_code, contents=list(items))
+    def create_with_items(cls, owner_code, items, **kwargs):
+        return cls(owner_code, contents=list(items), **kwargs)
 
     @staticmethod
     def _make_bic_code(owner_code, serial):
         return iso6346.create(owner_code=owner_code, serial=str(serial).zfill(6))
 
-    def __init__(self, owner_code, contents):
+    def __init__(self, owner_code, contents, **kwargs):
         self.owner_code = owner_code
         self.contents = contents
-        self.bic_code = ShippingContainer._make_bic_code(self.owner_code, ShippingContainer._generate_serial())
+        # Calling static method with class object reduces flexibility and extensibility
+        # Polymorphic dispatch, i.e. calling static method using derived class instance doesn't work.
+        # Hence, self should be used to make polymorphic dispatch work.
+        self.bic_code = self._make_bic_code(self.owner_code, ShippingContainer._generate_serial())
 
 
 if __name__ == '__main__':
