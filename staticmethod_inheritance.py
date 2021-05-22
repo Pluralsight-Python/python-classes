@@ -1,6 +1,3 @@
-"""
-    This code will not work as desired
-"""
 
 from classmethods_bic_code import ShippingContainer
 import iso6346
