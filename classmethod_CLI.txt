@@ -1,0 +1,96 @@
+(venv) PS D:\60_learning\05_pluralsight\pluralsight_python\python-classes> ipython.exe
+Python 3.9.4 (tags/v3.9.4:1f2e308, Apr  6 2021, 13:40:21) [MSC v.1928 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.23.1 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]:
+
+In [1]: from classmethod import *
+
+In [2]: c1 = ShippingContainer()
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-2-8acda569cb92> in <module>
+----> 1 c1 = ShippingContainer()
+
+TypeError: __init__() missing 2 required positional arguments: 'owner_code' and 'contents'
+
+In [3]: c1 = ShippingContainer("LJN", ["glass", "crockery"])
+_generate_serial
+
+In [4]: c1
+Out[4]: <classmethod.ShippingContainer at 0x1fcbefcabe0>
+
+In [5]: c1.__class__
+Out[5]: classmethod.ShippingContainer
+
+In [6]: c2 = ShippingContainer.create_empty("POU")
+_generate_serial
+
+In [7]: c2
+Out[7]: <classmethod.ShippingContainer at 0x1fcbe3c0730>
+
+In [8]: c1.serial
+Out[8]: 1337
+
+In [9]: c1.contents
+Out[9]: ['glass', 'crockery']
+
+In [10]: c1.owner_code
+Out[10]: 'LJN'
+
+In [11]: c2.owner_code
+Out[11]: 'POU'
+
+In [12]: c2.contents
+Out[12]: []
+
+In [13]: c2.serial
+Out[13]: 1338
+
+In [14]: ShippingContainer.next_serial
+Out[14]: 1339
+
+In [15]: c2.next_serial
+Out[15]: 1339
+
+In [16]: c1.next_serial
+Out[16]: 1339
+
+In [17]: c1.next_serial += 1
+
+In [18]: c1.next_serial
+Out[18]: 1340
+
+In [19]: c2.next_serial
+Out[19]: 1339
+
+In [20]: id(c1.next_serial)
+Out[20]: 2185075160336
+
+In [21]: id(c2.next_serial
+    ...: )
+Out[21]: 2185063128400
+
+In [22]: id(ShippingContainer.next_serial)
+Out[22]: 2185063128400
+
+In [23]: c3 = ShippingContainer.create_with_items("YHB", ["Beer"])
+_generate_serial
+
+In [24]: c3
+Out[24]: <classmethod.ShippingContainer at 0x1fcbee41400>
+
+In [25]: c3.contents
+Out[25]: ['Beer']
+
+In [26]: c3.serial
+Out[26]: 1339
+
+In [27]: c3.next_serial
+Out[27]: 1340
+
+In [28]: c3.owner_code
+Out[28]: 'YHB'
+
+In [29]:
