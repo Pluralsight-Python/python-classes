@@ -1,0 +1,111 @@
+(venv) PS D:\60_learning\05_pluralsight\pluralsight_python\python-classes> ipython
+Python 3.9.4 (tags/v3.9.4:1f2e308, Apr  6 2021, 13:40:21) [MSC v.1928 64 bit (AMD64)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 7.23.1 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from properties import *
+
+In [2]: r1 = RefrigeratedShippingContainer(owner_code="LFD", contents=["apples"], celsius=0.0)
+
+In [3]: r1._celsius
+Out[3]: 0.0
+
+In [4]: r1.celsius
+Out[4]: 0.0
+
+In [5]: r1.celsius = 12
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-5-32c9bdce8908> in <module>
+----> 1 r1.celsius = 12
+
+D:\60_learning\05_pluralsight\pluralsight_python\python-classes\properties.py in celsius(self, v)
+     21     def celsius(self, v):
+     22         if v > RefrigeratedShippingContainer.MAX_CELSIUS:
+---> 23             raise ValueError("Too hot !!")
+     24         self._celsius = v
+     25
+
+ValueError: Too hot !!
+
+In [6]: r1.celsius = 4.1
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-6-e57cc69ababc> in <module>
+----> 1 r1.celsius = 4.1
+
+D:\60_learning\05_pluralsight\pluralsight_python\python-classes\properties.py in celsius(self, v)
+     21     def celsius(self, v):
+     22         if v > RefrigeratedShippingContainer.MAX_CELSIUS:
+---> 23             raise ValueError("Too hot !!")
+     24         self._celsius = v
+     25
+
+ValueError: Too hot !!
+
+In [7]: r1.celsius = -2
+
+In [8]: r1._celsius
+Out[8]: -2
+
+In [9]: r1.fahrenheit
+Out[9]: 28.4
+
+In [10]: r1.fahrenheit = 30
+
+In [11]: r1.celsius
+Out[11]: -1.1111111111111112
+
+In [12]: r1.fahrenheit = 50
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-12-f3bc2af6b558> in <module>
+----> 1 r1.fahrenheit = 50
+
+D:\60_learning\05_pluralsight\pluralsight_python\python-classes\properties.py in fahrenheit(self, vf)
+     30     @fahrenheit.setter
+     31     def fahrenheit(self, vf):
+---> 32         self.celsius = self._f_to_c(vf)
+     33
+     34     @staticmethod
+
+D:\60_learning\05_pluralsight\pluralsight_python\python-classes\properties.py in celsius(self, v)
+     21     def celsius(self, v):
+     22         if v > RefrigeratedShippingContainer.MAX_CELSIUS:
+---> 23             raise ValueError("Too hot !!")
+     24         self._celsius = v
+     25
+
+ValueError: Too hot !!
+
+In [13]: r2 = RefrigeratedShippingContainer("MEV", ["beer"], 10)
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-13-583a97fabfbc> in <module>
+----> 1 r2 = RefrigeratedShippingContainer("MEV", ["beer"], 10)
+
+TypeError: __init__() takes 3 positional arguments but 4 were given
+
+In [14]: r2 = RefrigeratedShippingContainer("MEV", ["beer"], celsius=10)
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-14-de534a00e1c8> in <module>
+----> 1 r2 = RefrigeratedShippingContainer("MEV", ["beer"], celsius=10)
+
+D:\60_learning\05_pluralsight\pluralsight_python\python-classes\properties.py in __init__(self, owner_code, contents, celsius, **kwargs)
+     12     def __init__(self, owner_code, contents, *, celsius, **kwargs):
+     13         super().__init__(owner_code=owner_code, contents=contents, **kwargs)
+---> 14         self.celsius = celsius
+     15
+     16     @property
+
+D:\60_learning\05_pluralsight\pluralsight_python\python-classes\properties.py in celsius(self, v)
+     21     def celsius(self, v):
+     22         if v > RefrigeratedShippingContainer.MAX_CELSIUS:
+---> 23             raise ValueError("Too hot !!")
+     24         self._celsius = v
+     25
+
+ValueError: Too hot !!
+
+In [15]:
