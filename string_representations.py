@@ -9,11 +9,16 @@
     - __str__ method of any class defines its representation when str() is called on its instance.
     - By default, __str__ delegates to __repr__
     - __str__ representation is meant for users and hence should be displayed in natural language form.
+    - __format__ method is called when format() is called on class instance
+    - __format__ method accepts another argument 'format_spec' which means how the string representation
+    of the object should be formatted.
+    - We can define our own formatting rules by using various format_specs
+
 """
 
 
 class Position:
-    def __init__(self, latitude, longitude):
+    def __init__(self, *, latitude, longitude):
         if not -90 <= latitude <= 90:
             raise ValueError(f"Latitude {latitude} must be in range [-90°, 90°]")
         if not -180 <= longitude <= 180:
@@ -46,12 +51,25 @@ class Position:
         return out
 
     def __str__(self):
-        """Position coordinates in natural language form ar expressed, for example, as "20° N, 45° W"
-           The direction N is chosen for +ve valued latitudes, and E is chosen for +ve valued longitudes, similar
-           to Cartesian Coordinate system
-        """
-        out = f"{self.latitude}° {self.hemisphere_latitude}, " \
-              f"{self.longitude}° {self.hemisphere_longitude}"
+        return format(self)
+        # """Position coordinates in natural language form ar expressed, for example, as "20° N, 45° W"
+        #    The direction N is chosen for +ve valued latitudes, and E is chosen for +ve valued longitudes, similar
+        #    to Cartesian Coordinate system
+        # """
+        # out = f"{abs(self.latitude)}° {self.hemisphere_latitude}, " \
+        #       f"{abs(self.longitude)}° {self.hemisphere_longitude}"
+        # return out
+
+    def __format__(self, format_spec: str):
+        # Delegating formatting of each component of Position to float's __format__
+        component_format_spec = ".2f"
+        _, dot, digits = format_spec.partition('.')
+        if dot:
+            component_format_spec = f".{int(digits)}f"
+        latitude = format(abs(self.latitude), component_format_spec)
+        longitude = format(abs(self.longitude), component_format_spec)
+        out = f"{latitude}° {self.hemisphere_latitude}, " \
+              f"{longitude}° {self.hemisphere_longitude}"
         return out
 
 
@@ -65,3 +83,4 @@ class MarsPosition(Position):
 
 def typename(obj):
     return type(obj).__name__
+
