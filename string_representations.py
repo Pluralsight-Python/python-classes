@@ -6,6 +6,9 @@
     - Hence, there are few recommendations on what to return using __repr__:
         - The output of repr should contain as much state information of the class as feasible
         - The output shall be in the form of valid python class Constructor call
+    - __str__ method of any class defines its representation when str() is called on its instance.
+    - By default, __str__ delegates to __repr__
+    - __str__ representation is meant for users and hence should be displayed in natural language form.
 """
 
 
@@ -27,11 +30,28 @@ class Position:
     def longitude(self):
         return self._longitude
 
+    @property
+    def hemisphere_latitude(self):
+        return 'N' if self.latitude >= 0 else 'S'
+
+    @property
+    def hemisphere_longitude(self):
+        return 'E' if self.longitude >= 0 else 'W'
+
     # Defining __repr__ as mentioned in __doc__ above
     # Our class has 3 informations: class name: Position and its two args: latitude and longitude
     def __repr__(self):
         # Formatting as a valid class constructor call, and using keyword arguments...
         out = f"{typename(self)}(latitude={self.latitude}, longitude={self.longitude})"
+        return out
+
+    def __str__(self):
+        """Position coordinates in natural language form ar expressed, for example, as "20° N, 45° W"
+           The direction N is chosen for +ve valued latitudes, and E is chosen for +ve valued longitudes, similar
+           to Cartesian Coordinate system
+        """
+        out = f"{self.latitude}° {self.hemisphere_latitude}, " \
+              f"{self.longitude}° {self.hemisphere_longitude}"
         return out
 
 
