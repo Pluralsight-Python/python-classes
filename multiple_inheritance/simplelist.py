@@ -1,6 +1,8 @@
 """
     Base file for experiments on multiple inheritance
+
 """
+
 import sys
 import traceback
 
@@ -57,17 +59,27 @@ class SortedIntList(SortedList, IntList):
 if __name__ == '__main__':
     sil = SortedIntList([29, 39, 21, 41])
     print(f'{sil=}')
-    sil.add(76)
-    try:
-        sil.add('6')
-    except TypeError as e:
-        traceback.print_tb(e.__traceback__, file=sys.stdout)
+    # sil.add(76)
+    # try:
+    #     sil.add('6')
+    # except TypeError as e:
+    #     traceback.print_tb(e.__traceback__, file=sys.stdout)
+    #
+    # print(f'{sil=}')
+    #
+    # # The __bases__ attribute
+    # print(f'{SortedIntList.__bases__=}')
+    # print(f'{IntList.__bases__=}')
+    # print(f'{SortedList.__bases__=}')
+    # print(f'{SimpleList.__bases__=}')
 
-    print(f'{sil=}')
+    # Method Resolution Order
+    # For classes inheriting from multiple classes, the order of base class in __mro__ is same as their order
+    # in class declaration.
+    # Also all subclasses come before their base class
+    print(f"{SortedIntList.__mro__ = }")
+    print(f"{IntList.__mro__ = }")
+    print(f"{SortedList.__mro__ = }")
+    print(f"{SimpleList.__mro__ = }")
 
-    # The __bases__ attribute
-    print(f'{SortedIntList.__bases__=}')
-    print(f'{IntList.__bases__=}')
-    print(f'{SortedList.__bases__=}')
-    print(f'{SimpleList.__bases__=}')
 
