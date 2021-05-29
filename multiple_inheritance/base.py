@@ -32,3 +32,19 @@ class SortedList(SimpleList):
         super().add(item)
         self.sort()
 
+
+class IntList(SimpleList):
+    def __init__(self, items=()):
+        for i in items: self._validate(i)
+        super().__init__(items)
+
+    @staticmethod
+    def _validate(val):
+        if not isinstance(val, int):
+            raise TypeError("IntList expects integer items")
+
+    def add(self, item):
+        self._validate(item)
+        super().add(item)
+
+
