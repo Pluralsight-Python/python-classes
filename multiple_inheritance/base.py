@@ -1,6 +1,8 @@
 """
     Base file for experiments on multiple inheritance
 """
+import sys
+import traceback
 
 
 class SimpleList:
@@ -47,4 +49,25 @@ class IntList(SimpleList):
         self._validate(item)
         super().add(item)
 
+
+class SortedIntList(SortedList, IntList):
+    pass
+
+
+if __name__ == '__main__':
+    sil = SortedIntList([29, 39, 21, 41])
+    print(f'{sil=}')
+    sil.add(76)
+    try:
+        sil.add('6')
+    except TypeError as e:
+        traceback.print_tb(e.__traceback__, file=sys.stdout)
+
+    print(f'{sil=}')
+
+    # The __bases__ attribute
+    print(f'{SortedIntList.__bases__=}')
+    print(f'{IntList.__bases__=}')
+    print(f'{SortedList.__bases__=}')
+    print(f'{SimpleList.__bases__=}')
 
