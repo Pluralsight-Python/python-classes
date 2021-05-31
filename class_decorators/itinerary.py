@@ -19,6 +19,14 @@ class Itinerary:
     def locations(self):
         return self._locations
 
+    @property
+    def origin(self):
+        return self.locations[0].name
+
+    @property
+    def destination(self):
+        return self.locations[-1].name
+
     def add(self, location):
         self.locations.append(location)
 
