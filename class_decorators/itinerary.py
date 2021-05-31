@@ -21,14 +21,31 @@ def post_condition(predicate):
     return func_decor
 
 
+# The class decorator factory... pretty intuitive
+def invariant(predicate):
+    func_decor = post_condition(predicate)
+
+    def class_decor(_cls):
+        members = list(vars(_cls).items())
+
+        for name, member in members:
+            # We cannot use ismethod here, because, the methods are bound to instance. For class, they are functions
+            if inspect.isfunction(member):
+                decorated_member = func_decor(member)
+                setattr(_cls, name, decorated_member)
+        return _cls
+
+    return class_decor
+
+
 # This predicate shall check if the itenerary has at least 2 locations
 def at_least_two_locations(_self):
     return len(_self._locations) >= 2
 
 
+@invariant(at_least_two_locations)
 class Itinerary:
 
-    @post_condition(at_least_two_locations)
     def __init__(self, locations):
         self._locations = list(locations)
 
@@ -51,15 +68,12 @@ class Itinerary:
     def destination(self):
         return self.locations[-1].name
 
-    @post_condition(at_least_two_locations)
     def add(self, location):
         self.locations.append(location)
 
-    @post_condition(at_least_two_locations)
     def remove(self, location):
         self.locations.remove(location)
 
-    @post_condition(at_least_two_locations)
     def truncate_at(self, location):
         index = self.locations.index(location)
         self._locations = self._locations[:index + 1]
