@@ -33,6 +33,13 @@ class Location:
     name: str
     position: EarthPosition
 
+    def __post_init__(self):
+        """
+            __post_init__ is called by __init__ after field variable initialization. This special method
+            can be used to establish class invariants.
+        """
+        assert len(self.name) > 0, "The location name cannot be empty"
+
 
 hong_kong = Location('Hong Kong', EarthPosition(latitude=22.29, longitude=114.16))
 stockholm = Location('Stockholm', EarthPosition(latitude=59.33, longitude=18.06))
